@@ -1,16 +1,90 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-	<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OTP Verification</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: white;
+      margin: 0;
+    }
+
+    #verification_heading {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    #verification_subtext {
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .code-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .code {
+      width: 50px;
+      height: 60px;
+      font-size: 2rem;
+      text-align: center;
+      border-radius: 10px;
+      border: 2px solid #ddd;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .code:focus {
+      border-color: #ffcc00;
+    }
+  </style>
 </head>
-
 <body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
-</script>
+  <h1 id="verification_heading">Verify Your Account</h1>
+  <p id="verification_subtext">Please enter the 6-digit code we sent to your email/phone.</p>
 
+  <div class="code-container">
+    <input type="text" maxlength="1" class="code" />
+    <input type="text" maxlength="1" class="code" />
+    <input type="text" maxlength="1" class="code" />
+    <input type="text" maxlength="1" class="code" />
+    <input type="text" maxlength="1" class="code" />
+    <input type="text" maxlength="1" class="code" />
+  </div>
+
+  <script>
+    const inputs = document.querySelectorAll(".code");
+
+    inputs.forEach((input, index) => {
+      input.addEventListener("input", (e) => {
+        if (e.target.value.length > 0 && index < inputs.length - 1) {
+          inputs[index + 1].focus();
+        }
+      });
+
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Backspace") {
+          if (input.value === "" && index > 0) {
+            inputs[index - 1].focus();
+            inputs[index - 1].value = "";
+          }
+        }
+      });
+    });
+
+    // Auto-focus the first input on load
+    inputs[0].focus();
+  </script>
 </body>
-
 </html>
